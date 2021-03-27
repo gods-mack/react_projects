@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { ActivityIndicator, FlatList, Text, View, Image,StyleSheet, ScrollView, SafeAreaView,Button } from 'react-native';
+import { ActivityIndicator, FlatList, Text, View, Image,StyleSheet, ScrollView, SafeAreaView,Button,TouchableOpacity } from 'react-native';
 import PostList from './PostList.js';
 import NavigationBar from 'react-native-navbar';
+import Imcard from './components/Imcard'
 
 const rightButtonConfig = {
   title: 'Next',
@@ -27,6 +28,8 @@ export default class App extends Component {
     };
   }
 
+ 
+
   componentDidMount() {
     fetch('https://insta-apii.herokuapp.com/posts/', {method:'GET'})
       .then((response) => response.json())
@@ -39,10 +42,13 @@ export default class App extends Component {
         this.setState({ isLoading: false });
       });
   }
-
+  
   render() {
     const { data, isLoading } = this.state;
-
+    const pressHandler = (slug) => {
+      console.log("Profile Hit")
+    }
+  
     return (
       <View>
          <NavigationBar
@@ -52,30 +58,13 @@ export default class App extends Component {
          rightButtonTitle='forward'
       />
       <ScrollView style={styles.scrollView} >
-     
-        <Text></Text>
-          {
-              this.state.posts.map((p) => {
-                return (
-                  <View style={styles.card}>
-                    <View style={{alignItems:'center', flexDirection:'row'}}>
-                    <Image
-                      style={styles.image}
-                      source={{height:500, width:'97%'}} source={{uri:base_url.concat(p.author.image)}}
-                      resizeMode={"cover"} // <- needs to be "cover" for borderRadius to take effect on Android
-                    />
-                    <View style={{ flexDirection:'column'}}>
-                  <Text style={styles.namestyle_}>{p.author.username}</Text>
-                  <Text style={{paddingLeft:10}}>{p.location}</Text>
-                  </View>
-                  </View>
-                   <Text style={{paddingLeft:5,paddingTop:10,paddingBottom:2}}>{p.caption}</Text>
-                  <Image style={{height:500, width:'97%'}} source={{uri:base_url.concat(p.photo)}} />
-                 
-                  </View>
-                )
-              })
-            }
+      {
+        this.state.posts.map((p) => {
+          return (
+            <Imcard p={p}/>
+          )
+        })
+      }
       </ScrollView>
       </View>
     );
