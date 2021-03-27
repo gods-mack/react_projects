@@ -2,10 +2,11 @@
 import React, { useState } from 'react';
 import { Text, View, StyleSheet, Button,TouchableOpacity,Image } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+//import Video from 'react-native-video';
+import DisplayPost from './DisplayPost';
 
-
-var base_url = 'http://insta-apii.herokuapp.com'
-
+const base_url = 'http://insta-apii.herokuapp.com'
+//const base_url = 'localhost:8000'
 const style = StyleSheet.create(
   {
     center:{
@@ -27,17 +28,19 @@ const Greeting = (props) => {
 const Imcard = ({p}) => {
     const pressHandler = (slug) => {
         console.log("Profile Hit")
-      }
+    }
+    
+
 
         return (
           <View style={styles.card}>
             <TouchableOpacity onPress={() => pressHandler(p.slug)}>
             <View style={{alignItems:'center', flexDirection:'row'}}>
-              <Image
-                style={styles.image}
-                source={{height:500, width:'97%'}} source={{uri:base_url.concat(p.author.image)}}
-                resizeMode={"cover"} // <- needs to be "cover" for borderRadius to take effect on Android
-              />
+                <Image
+                    style={styles.image}
+                    source={{height:500, width:'97%'}} source={{uri:base_url.concat(p.author.image)}}
+                    resizeMode={"cover"} // <- needs to be "cover" for borderRadius to take effect on Android
+                />
               <View style={{ flexDirection:'column'}}>
              
                   <Text style={styles.namestyle_}>{p.author.username}</Text>
@@ -47,7 +50,7 @@ const Imcard = ({p}) => {
             </View>
             </TouchableOpacity>
             <Text style={{paddingLeft:5,paddingTop:10,paddingBottom:2}}>{p.caption}</Text>
-            <Image style={{height:500, width:'97%'}} source={{uri:base_url.concat(p.photo)}} />
+            <DisplayPost str={p.photo}/>
          
           </View>
         )
@@ -68,7 +71,7 @@ var styles = StyleSheet.create({
       borderColor: '#e6dddb',
       width: '98%',
       padding: 5,
-      marginTop:10
+      marginBottom:10
       
     },
     namestyle:{

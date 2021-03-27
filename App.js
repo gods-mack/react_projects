@@ -45,9 +45,7 @@ export default class App extends Component {
   
   render() {
     const { data, isLoading } = this.state;
-    const pressHandler = (slug) => {
-      console.log("Profile Hit")
-    }
+   
   
     return (
       <View>
