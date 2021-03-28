@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { ActivityIndicator, FlatList, Text, View, Image,StyleSheet, ScrollView, SafeAreaView,Button,TouchableOpacity } from 'react-native';
 import PostList from './PostList.js';
 import NavigationBar from 'react-native-navbar';
-import Imcard from './components/Imcard'
+import PostCard from './components/PostCard'
 
 const rightButtonConfig = {
   title: 'Next',
@@ -31,7 +31,7 @@ export default class App extends Component {
  
 
   componentDidMount() {
-    fetch('https://insta-apii.herokuapp.com/posts/', {method:'GET'})
+    fetch('http://insta-apii.herokuapp.com/posts/', {method:'GET'})
       .then((response) => response.json())
       .then((json) => {
         console.log(json);
@@ -59,7 +59,7 @@ export default class App extends Component {
       {
         this.state.posts.map((p) => {
           return (
-            <Imcard p={p}/>
+            <PostCard p={p}/>
           )
         })
       }

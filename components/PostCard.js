@@ -5,7 +5,7 @@ import { Colors } from 'react-native/Libraries/NewAppScreen';
 //import Video from 'react-native-video';
 import DisplayPost from './DisplayPost';
 
-const base_url = 'http://insta-apii.herokuapp.com'
+const base_url_s3 = 'https://godsmack.s3.amazonaws.com'
 //const base_url = 'localhost:8000'
 const style = StyleSheet.create(
   {
@@ -16,16 +16,9 @@ const style = StyleSheet.create(
   }
 )
 
-const Greeting = (props) => {
-  return (
-    <View style={style.center}>
-      <Text>Hello, {props.name}!</Text>
-    </View>
-  )
-}
 
 
-const Imcard = ({p}) => {
+const PostCard = ({p}) => {
     const pressHandler = (slug) => {
         console.log("Profile Hit")
     }
@@ -38,7 +31,7 @@ const Imcard = ({p}) => {
             <View style={{alignItems:'center', flexDirection:'row'}}>
                 <Image
                     style={styles.image}
-                    source={{height:500, width:'97%'}} source={{uri:base_url.concat(p.author.image)}}
+                    source={{height:500, width:'97%'}} source={{uri:base_url_s3.concat(p.author.image)}}
                     resizeMode={"cover"} // <- needs to be "cover" for borderRadius to take effect on Android
                 />
               <View style={{ flexDirection:'column'}}>
@@ -99,4 +92,4 @@ var styles = StyleSheet.create({
     });
 
     
-export default Imcard;
+export default PostCard;
